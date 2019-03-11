@@ -1,0 +1,7 @@
+node_modules/ 
+.env
+dist/
+staging.yaml
+production.yaml
+
+.vscode/
