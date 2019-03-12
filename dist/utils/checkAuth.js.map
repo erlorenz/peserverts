@@ -1,0 +1,1 @@
+{"version":3,"file":"checkAuth.js","sourceRoot":"","sources":["../../src/utils/checkAuth.ts"],"names":[],"mappings":";;AAAA,SAAS,SAAS,CAAC,IAAS;IAC1B,IAAI,CAAC,IAAI;QAAE,MAAM,IAAI,KAAK,CAAC,eAAe,CAAC,CAAC;IAC5C,OAAO,IAAI,CAAC;AACd,CAAC;AAED,kBAAe,SAAS,CAAC"}

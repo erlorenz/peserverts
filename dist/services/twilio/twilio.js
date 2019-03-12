@@ -21,12 +21,12 @@ async function sendText(bodyText, toNumber) {
     }
 }
 exports.sendText = sendText;
-function textNoResponse(bodyText, toNumber) {
+function sendTextNoResponse(bodyText, toNumber) {
     exports.client.messages.create({
         body: bodyText,
         to: toNumber,
         from: keys_1.twilioNumber,
     });
 }
-exports.textNoResponse = textNoResponse;
+exports.sendTextNoResponse = sendTextNoResponse;
 //# sourceMappingURL=twilio.js.map

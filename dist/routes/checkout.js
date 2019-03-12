@@ -1,12 +1,9 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const checkout_1 = require("../controllers/checkout");
+const checkout_1 = require("../actions/checkout");
 const mailjet_1 = require("../services/mailjet");
 const messages_1 = require("../services/twilio/messages");
-const twilio_1 = __importDefault(require("../services/twilio"));
+const twilio_1 = require("../services/twilio");
 const express_1 = require("express");
 const router = express_1.Router();
 // Receives most order info
@@ -36,7 +33,7 @@ router.post('/text', async (req, res) => {
         firstName = req.body.name.split(' ')[0];
     }
     try {
-        const textResponse = await twilio_1.default(messages_1.textBody.processed(firstName), req.body.phone);
+        const textResponse = await twilio_1.sendText(messages_1.textBody.processed(firstName), req.body.phone);
         res.status(200).json(textResponse);
     }
     catch (e) {

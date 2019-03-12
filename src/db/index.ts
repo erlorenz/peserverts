@@ -1,7 +1,7 @@
 import Knex from 'knex';
 import { Model } from 'objection';
 import AdminUser from '../models/AdminUser';
-import winston from 'winston';
+import logger from '../config/winston';
 
 const { DB_NAME, DB_PASSWORD, DB_USER, DB_SOCKET_NAME } = process.env;
 
@@ -46,9 +46,9 @@ export default async () => {
   (async () => {
     try {
       await AdminUser.query();
-      winston.info('Postgres Server Connected');
+      logger.info('Postgres Server Connected');
     } catch (e) {
-      winston.warn('Postgres: ' + e.message);
+      logger.info('Postgres: ' + e.message);
     }
   })();
 };
