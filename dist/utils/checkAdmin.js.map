@@ -1,1 +1,0 @@
-{"version":3,"file":"checkAdmin.js","sourceRoot":"","sources":["../../src/utils/checkAdmin.ts"],"names":[],"mappings":";;AAAA,SAAS,UAAU,CAAC,IAAS;IAC3B,IAAI,IAAI,CAAC,YAAY,KAAK,OAAO;QAC/B,MAAM,IAAI,KAAK,CAAC,mCAAmC,CAAC,CAAC;IACvD,OAAO,IAAI,CAAC;AACd,CAAC;AAED,kBAAe,UAAU,CAAC"}

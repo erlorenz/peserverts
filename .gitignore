@@ -52,3 +52,5 @@ staging.yaml
 production.yaml
 
 .vscode/
+
+dist/
