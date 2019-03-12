@@ -48,7 +48,7 @@ export default async () => {
       await AdminUser.query();
       logger.info('Postgres Server Connected');
     } catch (e) {
-      logger.info('Postgres: ' + e.message);
+      logger.warn('Postgres: ' + e.message);
     }
   })();
 };
