@@ -9,7 +9,15 @@ const outForDeliveryText =
 const completedText =
   'Your items have been dropped off at the same location they were picked up. Thank you for choosing Press Express!';
 
-export const textBody = {
+interface TextBody {
+  [key: string]: any;
+  processed: any;
+  picked_up: string;
+  out_for_delivery: string;
+  completed: string;
+}
+
+export const textBody: TextBody = {
   processed: processedText,
   picked_up: pickedUpText,
   out_for_delivery: outForDeliveryText,

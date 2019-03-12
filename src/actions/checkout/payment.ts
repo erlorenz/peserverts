@@ -1,11 +1,18 @@
 import { createCharge, createCustomer } from '../../services/stripe';
 import { formatPhone } from '../../utils';
 import validate from './checkoutValidation';
-import TextAPI from '../../services/twilio';
-import { textNoResponse } from '../../services/twilio/twilio';
+import { sendTextNoResponse } from '../../services/twilio';
 import { DateTime } from 'luxon';
 
-export default async payload => {
+interface PaymentReturn {
+  stripe_charge: string;
+  stripe_customer: string;
+  phone: string;
+  error: string;
+  message: string;
+}
+
+async function payment(payload: any): Promise<PaymentReturn> {
   // Create order object and metadata object
   const orderFields = { ...payload };
   const metadata = {
@@ -34,6 +41,7 @@ export default async payload => {
       return {
         stripe_charge: '',
         stripe_customer: '',
+        phone: '',
         error: 'validation',
         message: e.message,
       };
@@ -43,7 +51,7 @@ export default async payload => {
     const customer = await createCustomer(
       orderFields.email,
       orderFields.stripeToken,
-      metadata,
+      metadata
     );
 
     delete orderFields.stripeToken;
@@ -52,17 +60,17 @@ export default async payload => {
     const charge = await createCharge(
       orderFields.total_price,
       customer.id,
-      metadata,
+      metadata
     );
 
     // Send text notification, dont wait for a response
-    textNoResponse(
+    sendTextNoResponse(
       `New order ${orderFields.hotel} - pickup at ${DateTime.fromMillis(
-        +orderFields.pickup_date,
+        +orderFields.pickup_date
       )
         .setZone('America/Los_Angeles')
         .toFormat('EEEE h:mm a')}`,
-      process.env.PERSONAL_PHONE,
+      process.env.PERSONAL_PHONE as string
     );
 
     // Return Stripe Charge and Customer ID
@@ -78,8 +86,11 @@ export default async payload => {
     return {
       stripe_charge: '',
       stripe_customer: '',
+      phone: '',
       error: 'payment',
       message: e.message,
     };
   }
-};
+}
+
+export default payment;

@@ -3,7 +3,7 @@ import validate from './specialOrderValidation';
 import { formatPhone, checkAuth } from '../../utils';
 import insertSpecialOrder from './insertSpecialOrder';
 
-export default async (_, args, { models, currentUser }) => {
+export default async (_: any, args: any, { models, currentUser }: any) => {
   checkAuth(currentUser);
 
   const orderFields = { ...args };
@@ -26,14 +26,14 @@ export default async (_, args, { models, currentUser }) => {
   const customer = await createCustomer(
     orderFields.email,
     orderFields.stripeToken,
-    metadata,
+    metadata
   );
 
   // Create Stripe charge
   const charge = await createCharge(
     orderFields.total_price,
     customer.id,
-    metadata,
+    metadata
   );
 
   // Add Stripe customer and charge to orderFields

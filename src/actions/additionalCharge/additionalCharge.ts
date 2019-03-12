@@ -2,9 +2,12 @@ import * as StripeController from '../../services/stripe';
 import validate from './additionalChargeValidation';
 import insertAdditionalCharge from './insertAdditionalCharge';
 import { checkAuth } from '../../utils';
-import sendAdditionalCharge from '../../services/mailjet/sendAdditionalCharge';
+import { sendAdditionalCharge } from '../../services/mailjet';
 
-export default async (payload, { models, currentUser }) => {
+export default async (
+  payload: any,
+  { models, currentUser }: { models: any; currentUser: any }
+) => {
   checkAuth(currentUser);
 
   // Create data object
@@ -22,7 +25,11 @@ export default async (payload, { models, currentUser }) => {
   validate(payload);
 
   // Make additional charge -- fails on error
-  const charge = await StripeController.createCharge(amount, stripe_customer);
+  const charge = await StripeController.createCharge(
+    amount,
+    stripe_customer,
+    null
+  );
 
   // Send receipt email
   const mailjetData = {
@@ -45,7 +52,7 @@ export default async (payload, { models, currentUser }) => {
   // Save to DB
   const dbResponse = await insertAdditionalCharge(
     additionalDetails,
-    models.AdditionalCharge,
+    models.AdditionalCharge
   );
 
   return { receiptEmail: emailResponse, database: dbResponse };

@@ -1,7 +1,7 @@
-export default async (additionalDetails, AdditionalCharge) => {
+export default async (additionalDetails: any, AdditionalCharge: any) => {
   try {
     const additionalCharge = await AdditionalCharge.query().insert(
-      additionalDetails,
+      additionalDetails
     );
     return { success: true, message: additionalCharge.id };
   } catch (e) {

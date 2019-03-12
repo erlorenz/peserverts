@@ -1,4 +1,4 @@
-export default async (orderFields, SpecialOrder) => {
+export default async (orderFields: any, SpecialOrder: any) => {
   try {
     const order = await SpecialOrder.query().insert(orderFields);
     console.log(order);

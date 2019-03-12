@@ -1,7 +1,7 @@
-import { receiptEmail, payment, dbTransaction } from '../controllers/checkout';
+import { receiptEmail, payment, dbTransaction } from '../actions/checkout';
 import { sendCheckoutError } from '../services/mailjet';
 import { textBody } from '../services/twilio/messages';
-import TextAPI from '../services/twilio';
+import { sendText } from '../services/twilio';
 import { Router } from 'express';
 
 const router = Router();
@@ -34,7 +34,7 @@ router.post('/text', async (req, res) => {
     firstName = req.body.name.split(' ')[0];
   }
   try {
-    const textResponse = await TextAPI(
+    const textResponse = await sendText(
       textBody.processed(firstName),
       req.body.phone
     );

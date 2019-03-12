@@ -1,4 +1,4 @@
-export default async (refundDetails, { Refund }) => {
+export default async (refundDetails: any, { Refund }: { Refund: any }) => {
   try {
     const refund = await Refund.query().insert(refundDetails);
     return { success: true, message: refund.id };

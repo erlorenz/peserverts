@@ -1,7 +1,10 @@
 import validate from './adminCommentValidation';
 import { checkAuth } from '../../utils';
 
-export default async (payload, { models, currentUser }) => {
+export default async (
+  payload: any,
+  { models, currentUser }: { models: any; currentUser: any }
+) => {
   checkAuth(currentUser);
 
   validate(payload);

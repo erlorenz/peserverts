@@ -4,7 +4,10 @@ import insertRefund from './insertRefund';
 import { checkAuth } from '../../utils';
 import sendRefund from '../../services/mailjet/sendRefund';
 
-export default async (payload, { models, currentUser }) => {
+export default async (
+  payload: any,
+  { models, currentUser }: { models: any; currentUser: any }
+) => {
   checkAuth(currentUser);
 
   // Validate data
@@ -14,6 +17,7 @@ export default async (payload, { models, currentUser }) => {
   const refundResponse = await StripeController.createRefund(
     payload.amount,
     payload.stripe_charge,
+    undefined
   );
 
   // Send receipt email

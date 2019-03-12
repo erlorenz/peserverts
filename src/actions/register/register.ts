@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import validate from './registerValidation';
 import { checkAuth } from '../../utils';
 
-export default async (payload, AdminUser, currentUser) => {
+export default async (payload: any, AdminUser: any, currentUser: any) => {
   checkAuth(currentUser);
 
   validate(payload);

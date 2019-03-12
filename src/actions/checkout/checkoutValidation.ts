@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-export default payload => {
+function validate(payload: any): void {
   const schema = {
     name: Joi.string().required(),
     email: Joi.string()
@@ -32,6 +32,6 @@ export default payload => {
   const result = Joi.validate(payload, schema);
 
   if (result.error) throw new Error(result.error.details[0].message);
+}
 
-  return result;
-};
+export default validate;

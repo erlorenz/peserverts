@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-export default payload => {
+export default (payload: any) => {
   const schema = {
     comment_body: Joi.string().required(),
     admin_user_id: Joi.string().required(),

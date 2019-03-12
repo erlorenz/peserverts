@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-export default payload => {
+export default (payload: any) => {
   const schema = {
     name: Joi.string().required(),
     email: Joi.string()

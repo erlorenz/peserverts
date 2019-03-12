@@ -5,12 +5,11 @@ import SpecialOrder from '../../models/SpecialOrder';
 import AdminComment from '../../models/AdminComment';
 import AdminCommentDisplay from '../../models/AdminCommentDisplay';
 import AdditionalCharge from '../../models/AdditionalCharge';
-import Garment from '../../models/Garment';
 import Refund from '../../models/Refund';
 import verifyToken from './verifyToken';
 import winston from 'winston';
 
-export default async ({ req }) => {
+export default async ({ req }: { req: any }) => {
   const context = {
     // Add Models to Context
     models: {
@@ -22,7 +21,6 @@ export default async ({ req }) => {
       AdminCommentDisplay,
       AdditionalCharge,
       Refund,
-      Garment,
     },
 
     // User defaults to null

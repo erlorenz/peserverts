@@ -1,14 +1,24 @@
-import sendReceipt from '../../services/mailjet/sendReceipt';
 import { DateTime } from 'luxon';
+import { SuccessAndMessage } from '../../utils/types';
+import { sendReceipt } from '../../services/mailjet';
 
-const receiptEmail = async payload => {
+async function receiptEmail(payload: any): Promise<SuccessAndMessage> {
   const orderFields = { ...payload };
 
+  interface CustomerOrderItem {
+    slug: string;
+    description: string;
+    price: number;
+    quantity: number;
+  }
+
   // Format the prices
-  const addSubtotal = orderFields.customerOrderItems.map(item => ({
-    ...item,
-    subTotal: ((item.price * item.quantity) / 100).toFixed(2),
-  }));
+  const addSubtotal = orderFields.customerOrderItems.map(
+    (item: CustomerOrderItem) => ({
+      ...item,
+      subTotal: ((item.price * item.quantity) / 100).toFixed(2),
+    })
+  );
   const total_price = (orderFields.total_price / 100).toFixed(2);
 
   const emailPayload = {
@@ -30,6 +40,6 @@ const receiptEmail = async payload => {
   const receiptResponse = await sendReceipt(emailPayload);
 
   return receiptResponse;
-};
+}
 
 export default receiptEmail;

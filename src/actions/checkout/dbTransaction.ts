@@ -1,8 +1,9 @@
 import { transaction } from 'objection';
 import CustomerOrder from '../../models/CustomerOrder';
 import { DateTime } from 'luxon';
+import { SuccessAndMessage } from '../../utils/types';
 
-export default async payload => {
+async function dbTransaction(payload: any): Promise<SuccessAndMessage> {
   let trx;
 
   // Format Timestamps into ISO for Postgres (turn string to number)
@@ -24,11 +25,13 @@ export default async payload => {
     };
   } catch (e) {
     // Rollback transaction on error
-    await trx.rollback();
+    if (trx) await trx.rollback();
     console.log(e);
     return {
       success: false,
       message: 'Error writing to database.',
     };
   }
-};
+}
+
+export default dbTransaction;

@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 
-export default async (email, password, AdminUser) => {
+export default async (email: string, password: string, AdminUser: any) => {
   // Validate
   if (!email || !password)
     throw new Error('Username/password can not be blank');

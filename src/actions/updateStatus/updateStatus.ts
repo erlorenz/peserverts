@@ -1,9 +1,12 @@
 import { textBody, textArray } from '../../services/twilio/messages';
-import textAPI from '../../services/twilio';
 import statusList from './statusList';
 import { checkAuth } from '../../utils';
+import { sendText } from '../../services/twilio';
 
-export default async (args, { models, currentUser }) => {
+export default async (
+  args: any,
+  { models, currentUser }: { models: any; currentUser: any }
+) => {
   checkAuth(currentUser);
 
   const { status, customer_order_id, special_order_id } = args;
@@ -25,7 +28,7 @@ export default async (args, { models, currentUser }) => {
 
   //  Send twilio message if it is a matching status
   if (textArray.includes(status) && customer_order_id) {
-    const textResponse = await textAPI(textBody[status], order.phone);
+    const textResponse = await sendText(textBody[status], order.phone);
 
     return {
       database: dbResponse,
