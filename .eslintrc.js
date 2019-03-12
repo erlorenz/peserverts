@@ -9,5 +9,6 @@ module.exports = {
     rules: {
         "prettier/prettier": "error",
         "@typescript-eslint/camelcase": 0,
+        "@typescript-eslint/explicit-member-accessibility": 0,
       },
   };

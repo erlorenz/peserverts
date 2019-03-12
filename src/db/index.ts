@@ -5,8 +5,18 @@ import winston from 'winston';
 
 const { DB_NAME, DB_PASSWORD, DB_USER, DB_SOCKET_NAME } = process.env;
 
+interface Config {
+  client: string;
+  connection: {
+    database: string | undefined;
+    user: string | undefined;
+    password: string | undefined;
+    host?: string | undefined;
+  };
+}
+
 // Decide which Knex config to use based on NODE_ENV
-let config = {
+let config: Config = {
   client: 'pg',
   connection: {
     database: DB_NAME,

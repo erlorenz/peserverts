@@ -1,10 +1,14 @@
-import generateJWT from './generateJWT';
 import { Model } from 'objection';
 import AdminComment from '../AdminComment';
 import Refund from '../Refund';
 import AdditionalCharge from '../AdditionalCharge';
+import jwt from 'jsonwebtoken';
+import { jwtSecret } from '../../config/keys';
 
 export default class AdminUser extends Model {
+  // Had to add this
+  [x: string]: any;
+
   static tableName = 'admin_user';
 
   static relationMappings = {
@@ -34,12 +38,9 @@ export default class AdminUser extends Model {
     },
   };
 
-  generateJWT() {
-    return generateJWT;
-  }
-
-  authRole(requiredRole) {
-    if (!this.role !== requiredRole)
-      throw new Error(`Forbidden: ${requiredRole} role required`);
-  }
+  generateJWT = () => {
+    const payload = { email: this.email };
+    const token = jwt.sign(payload, jwtSecret, { expiresIn: 3600 });
+    return token;
+  };
 }
