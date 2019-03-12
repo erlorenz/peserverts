@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import twilio from 'twilio';
+import logger from '../config/winston';
 
 const router = Router();
 
@@ -8,7 +9,7 @@ router.post('/notifications/sms', (req, res) => {
   const twiml = new twilio.twiml.MessagingResponse();
 
   twiml.message(
-    'These notifications are auto-generated. Please call 702-620-3315 or email support@pressexpresslv.com if you need to contact us.',
+    'These notifications are auto-generated. Please call 702-620-3315 or email support@pressexpresslv.com if you need to contact us.'
   );
 
   res.writeHead(200, { 'Content-Type': 'text/xml' });
@@ -20,7 +21,8 @@ router.post('/notifications/voice', (request, response) => {
   const twiml = new twilio.twiml.VoiceResponse();
 
   twiml.say({ voice: 'alice' }, 'Forwarding now!');
-  twiml.dial('702-620-3315');
+  twiml.dial(undefined, '702-620-3315');
+  logger.warn('Had to stick an undefined in there. Might not dial correctly!');
 
   // Render the response as XML in reply to the webhook request
   response.type('text/xml');

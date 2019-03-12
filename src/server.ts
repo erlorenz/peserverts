@@ -3,23 +3,19 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import configureWinston from './config/logging';
 import apolloServer from './schema';
-import winston from 'winston';
 import initializeDB from './db';
-import initializeRoutes from './routes';
+import routes from './routes';
+import logger from './config/winston';
 
 // Initialize express
 const app = express();
-
-// Logging
-configureWinston();
 
 // Initialize Database and Objection
 initializeDB();
 
 // Middleware
-app.use(morgan('dev'));
+app.use(morgan('combined'));
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
@@ -27,21 +23,16 @@ app.use(express.json());
 // GraphQL
 apolloServer.applyMiddleware({ app });
 
-// Server ping
-app.get('/', (req, res) =>
-    res.send('Server is running in env: ' + process.env.NODE_ENV)
-);
-
-// Routes
-initializeRoutes(app);
+// REST Routes
+app.use('/', routes);
 
 // Connect server to PORT
 const { PORT, NODE_ENV } = process.env;
 
 app.listen(PORT, () => {
-    winston.info(
-        `Express running at: ${PORT}, 
+  logger.info(
+    `Express running at: ${PORT}, 
     Environment: ${NODE_ENV},
     🚀 Server ready.`
-    );
+  );
 });

@@ -7,8 +7,7 @@
     "test": "jest",
     "dev": "nodemon --exec babel-node src/server.js",
     "start": "node dist/server.js",
-    "debug": "nodemon src/server.js --inspect --exec babel-node",
-    "build": "npx babel src -d dist",
+    "build": "tsc src -d dist",
     "deploy:staging": "npm run build && gcloud config set project press-express-staging && gcloud app deploy staging.yaml",
     "deploy:production": "npm run build && gcloud config set project press-express-225200 && gcloud app deploy production.yaml"
   },
@@ -39,6 +38,9 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "@types/helmet": "0.0.43",
+    "@types/morgan": "^1.7.35",
+    "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^1.4.2",
     "@typescript-eslint/parser": "^1.4.2",
     "eslint": "^5.15.1",

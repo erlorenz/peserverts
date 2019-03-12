@@ -36,7 +36,7 @@ router.post('/text', async (req, res) => {
   try {
     const textResponse = await TextAPI(
       textBody.processed(firstName),
-      req.body.phone,
+      req.body.phone
     );
     res.status(200).json(textResponse);
   } catch (e) {
