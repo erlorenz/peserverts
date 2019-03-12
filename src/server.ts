@@ -4,17 +4,20 @@ import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 import apollo from './schema';
 import logger from 'koa-logger';
+import initializeDB from './db';
 
 const { PORT, NODE_ENV } = process.env;
 
 ///// Koa /////
-
 const app = new Koa();
 const router = new Router();
 
 // Middleware
 app.use(logger());
 app.use(bodyParser());
+
+// DB
+initializeDB();
 
 // Apply Apollo server middleware
 apollo.applyMiddleware({ app });

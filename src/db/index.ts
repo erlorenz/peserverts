@@ -1,7 +1,7 @@
 import Knex from 'knex';
 import { Model } from 'objection';
 import AdminUser from '../models/AdminUser';
-import logger from '../config/winston';
+// import logger from '../config/winston';
 
 const { DB_NAME, DB_PASSWORD, DB_USER, DB_SOCKET_NAME } = process.env;
 
@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === 'production')
   };
 
 // Initialize Knex and Objection
-export default async () => {
+async function initializeDB(): Promise<void> {
   const knex = Knex(config);
 
   Model.knex(knex);
@@ -46,9 +46,11 @@ export default async () => {
   (async () => {
     try {
       await AdminUser.query();
-      logger.info('Postgres Server Connected');
+      console.log('Postgres Server Connected');
     } catch (e) {
-      logger.warn('Postgres: ' + e.message);
+      console.log('Postgres: ' + e.message);
     }
   })();
-};
+}
+
+export default initializeDB;
