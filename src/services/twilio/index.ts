@@ -1,1 +1,1 @@
-export { sendText, sendTextNoResponse } from './twilio';
+export * from './twilio';

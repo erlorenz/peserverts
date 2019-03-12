@@ -1,9 +1,10 @@
 import { mailjetKey, mailjetSecret } from '../../config/keys';
 import nodeMailjet from 'node-mailjet';
+import { SuccessAndMessage } from '../../utils/types';
 
 const mailjet = nodeMailjet.connect(mailjetKey, mailjetSecret);
 
-const sendReceipt = async payload => {
+export async function sendReceipt(payload: any): Promise<SuccessAndMessage> {
   try {
     const message = {
       Messages: [
@@ -61,6 +62,4 @@ const sendReceipt = async payload => {
     console.log(e);
     return { success: false, message: e.ErrorMessage };
   }
-};
-
-export default sendReceipt;
+}

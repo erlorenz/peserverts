@@ -6,4 +6,4 @@ export const twilioToken = process.env.TWILIO_TOKEN;
 export const twilioNumber = process.env.TWILIO_NUMBER;
 export const mailjetKey = process.env.MAILJET_KEY;
 export const mailjetSecret = process.env.MAILJET_SECRET;
-export const stripeKey = process.env.STRIPE_KEY;
+export const stripeKey: string = process.env.STRIPE_KEY as string;

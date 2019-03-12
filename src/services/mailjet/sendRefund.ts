@@ -1,9 +1,10 @@
 import { mailjetKey, mailjetSecret } from '../../config/keys';
 import nodeMailjet from 'node-mailjet';
+import { SuccessAndMessage } from '../../utils/types';
 
 const mailjet = nodeMailjet.connect(mailjetKey, mailjetSecret);
 
-async function sendAdditionalCharge(payload) {
+export async function sendRefund(payload: any): Promise<SuccessAndMessage> {
   try {
     const message = {
       Messages: [
@@ -19,7 +20,7 @@ async function sendAdditionalCharge(payload) {
               Name: payload.name,
             },
           ],
-          TemplateID: 711914,
+          TemplateID: 715429,
           TemplateLanguage: true,
           Subject: 'Your Press Express Receipt',
           Variables: payload,
@@ -42,7 +43,7 @@ async function sendAdditionalCharge(payload) {
               Name: 'Admin',
             },
           ],
-          TemplateID: 711914,
+          TemplateID: 715429,
           TemplateLanguage: true,
           Subject: `Additional Charge - ${payload.name}`,
           Variables: payload,
@@ -63,4 +64,4 @@ async function sendAdditionalCharge(payload) {
   }
 }
 
-export default sendAdditionalCharge;
+export default sendRefund;
