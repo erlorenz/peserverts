@@ -1,39 +1,31 @@
 import 'dotenv/config';
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import morgan from 'morgan';
-import apolloServer from './schema';
-import initializeDB from './db';
-import routes from './routes';
-import logger from './config/winston';
+import Koa from 'koa';
+import Router from 'koa-router';
+import bodyParser from 'koa-bodyparser';
+import apollo from './schema';
+import logger from 'koa-logger';
 
 const { PORT, NODE_ENV } = process.env;
 
-// Initialize express
-const app = express();
+///// Koa /////
 
-// Initialize Database and Objection
-initializeDB();
+const app = new Koa();
+const router = new Router();
 
 // Middleware
-app.use(morgan('common'));
-app.use(cors());
-app.use(helmet());
-app.use(express.json());
+app.use(logger());
+app.use(bodyParser());
 
-// GraphQL
-apolloServer.applyMiddleware({ app });
+// Apply Apollo server middleware
+apollo.applyMiddleware({ app });
 
-// REST Routes
-app.use('/', routes);
+// Wire up router
+app.use(router.routes()).use(router.allowedMethods());
 
-// Connect server to PORT
-
-app.listen(PORT, () => {
-  logger.info(
-    `Environment: ${NODE_ENV},
-      Express running at port: ${PORT}, 
-      🚀 Apollo Server ready at /graphql.`
+// Start Server
+app.listen(PORT || 3001, () => {
+  console.log(`Koa started on http://localhost:${PORT}`);
+  console.log(
+    `🚀 Server ready at http://localhost:${PORT}${apollo.graphqlPath}`
   );
 });

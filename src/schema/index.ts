@@ -1,4 +1,4 @@
-import { ApolloServer } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-koa';
 import adminUserTypes from './adminUser/adminUserTypes';
 import adminCommentTypes from './adminComment/adminCommentTypes';
 import customerOrderTypes from './customerOrder/customerOrderTypes';
