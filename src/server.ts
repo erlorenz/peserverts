@@ -29,7 +29,7 @@ apolloServer.applyMiddleware({ app });
 
 // Server ping
 app.get('/', (req, res) =>
-  res.send('Server is running in env: ' + process.env.NODE_ENV),
+    res.send('Server is running in env: ' + process.env.NODE_ENV)
 );
 
 // Routes
@@ -39,9 +39,9 @@ initializeRoutes(app);
 const { PORT, NODE_ENV } = process.env;
 
 app.listen(PORT, () => {
-  winston.info(
-    `Express running at: ${PORT}, 
+    winston.info(
+        `Express running at: ${PORT}, 
     Environment: ${NODE_ENV},
-    🚀 Server ready.`,
-  );
+    🚀 Server ready.`
+    );
 });
