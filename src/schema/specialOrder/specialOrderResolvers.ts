@@ -1,33 +1,30 @@
 import { checkAuth } from '../../utils';
-import checkoutController from '../../controllers/checkout';
+import specialOrderController from '../../actions/specialOrder';
 
 export const Query = {
   // Find Orders by Status
-  //
-  async getCustomerOrdersByStatus(_, args, { currentUser, models }) {
+  async getSpecialOrdersByStatus(_, args, { currentUser, models }) {
     checkAuth(currentUser);
 
     const { status, orderBy = 'created_at', direction = 'desc' } = args;
 
     // Return all if no status included
-    if (!status.length) return await models.CustomerOrder.query();
+    if (!status.length) return await models.SpecialOrder.query();
 
-    const result = await models.CustomerOrder.query()
+    const result = await models.SpecialOrder.query()
       .whereIn('status', status)
       .orderBy(orderBy, direction);
 
     return result;
   },
 
-  // Find Individual Order by ID with all related info
-  //
-  async getCustomerOrder(_, args, { models, currentUser }) {
-    checkAuth(currentUser);
-
+  async getSpecialOrder(_, args, { models, currentUser }) {
     const { id } = args;
 
-    const order = await models.CustomerOrder.query()
-      .eager('[customerOrderItems, refunds, additionalCharges, adminComments]')
+    checkAuth(currentUser);
+
+    const order = await models.SpecialOrder.query()
+      .eager('[refunds, additionalCharges, adminComments]')
       .where('id', id)
       .first();
 
@@ -39,14 +36,14 @@ export const Query = {
 
   // Search orders by partial match
   //
-  async getCustomerOrdersLike(_, { column, value }, { currentUser, models }) {
+  async getSpecialOrdersLike(_, { column, value }, { currentUser, models }) {
     checkAuth(currentUser);
 
     // Query DB
-    const result = await models.CustomerOrder.query().where(
+    const result = await models.SpecialOrder.query().where(
       column,
       'ilike',
-      `%${value}%`,
+      `%${value}%`
     );
 
     // Throw error if no order found
@@ -58,7 +55,7 @@ export const Query = {
 };
 
 export const Mutation = {
-  checkout(_, args) {
-    return checkoutController(args);
+  createSpecialOrder(_, args, context) {
+    return specialOrderController(_, args, context);
   },
 };

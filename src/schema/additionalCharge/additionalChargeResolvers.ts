@@ -1,4 +1,4 @@
-import additionalChargeController from '../../controllers/additionalCharge';
+import additionalChargeController from '../../actions/additionalCharge';
 import { checkAuth } from '../../utils';
 
 export const Query = {
@@ -17,7 +17,7 @@ export const Query = {
     // Perform query
     const charges = await models.AdditionalCharge.query().where(
       columnName,
-      orderID,
+      orderID
     );
     return charges;
   },

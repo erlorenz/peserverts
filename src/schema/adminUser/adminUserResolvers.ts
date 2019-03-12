@@ -1,5 +1,5 @@
-import signInController from '../../controllers/signIn';
-import registerController from '../../controllers/register';
+import signInController from '../../actions/signIn';
+import registerController from '../../actions/register';
 import { checkAuth } from '../../utils';
 
 export const Query = {

@@ -1,8 +1,8 @@
-import adminCommentController from '../../controllers/adminComment';
+import refundController from '../../actions/refund';
 import { checkAuth } from '../../utils';
 
 export const Query = {
-  async getAdminCommentsByOrderID(_, args, { models, currentUser }) {
+  async getRefundsByOrderID(_, args, { models, currentUser }) {
     checkAuth(currentUser);
 
     const { customer_order_id, special_order_id } = args;
@@ -15,16 +15,11 @@ export const Query = {
     const orderID = special_order_id ? special_order_id : customer_order_id;
 
     // Perform query
-    const comments = await models.AdminCommentDisplay.query().where(
-      columnName,
-      orderID,
-    );
-
-    return comments;
+    const charges = await models.Refund.query().where(columnName, orderID);
+    return charges;
   },
 };
 
 export const Mutation = {
-  insertAdminComment: (_, args, context) =>
-    adminCommentController(args, context),
+  insertRefund: (_, args, context) => refundController(args, context),
 };

@@ -7,7 +7,7 @@ import AdminCommentDisplay from '../../models/AdminCommentDisplay';
 import AdditionalCharge from '../../models/AdditionalCharge';
 import Refund from '../../models/Refund';
 import verifyToken from './verifyToken';
-import winston from 'winston';
+import logger from '../../config/winston';
 
 export default async ({ req }: { req: any }) => {
   const context = {
@@ -34,7 +34,7 @@ export default async ({ req }: { req: any }) => {
     // Add the verified user to the context
     context.currentUser = currentUser;
   } catch (e) {
-    winston.info(e.message);
+    logger.warn(e.message);
   }
 
   return context;

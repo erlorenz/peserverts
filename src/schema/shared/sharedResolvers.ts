@@ -1,4 +1,4 @@
-import updateStatusController from '../../controllers/updateStatus';
+import updateStatusController from '../../actions/updateStatus';
 
 export const Mutation = {
   updateStatus(_, args, context) {
