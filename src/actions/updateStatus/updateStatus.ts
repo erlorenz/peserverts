@@ -2,6 +2,7 @@ import { textBody, textArray } from '../../services/twilio/messages';
 import statusList from './statusList';
 import { checkAuth } from '../../utils';
 import { sendText } from '../../services/twilio';
+import { SuccessAndMessage } from '../../utils/types';
 
 export default async (
   args: any,
@@ -24,7 +25,7 @@ export default async (
     .returning('*')
     .first();
 
-  const dbResponse = { success: true, message: order.id };
+  const dbResponse: SuccessAndMessage = { success: true, message: order.id };
 
   //  Send twilio message if it is a matching status
   if (textArray.includes(status) && customer_order_id) {
