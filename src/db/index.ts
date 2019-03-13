@@ -16,7 +16,7 @@ interface Config {
 }
 
 // Decide which Knex config to use based on NODE_ENV
-let config: Config = {
+const config: Config = {
   client: 'pg',
   connection: {
     database: DB_NAME,
@@ -25,16 +25,9 @@ let config: Config = {
   },
 };
 
-if (process.env.NODE_ENV === 'production')
-  config = {
-    client: 'pg',
-    connection: {
-      database: DB_NAME,
-      user: DB_USER,
-      password: DB_PASSWORD,
-      host: `/cloudsql/${DB_SOCKET_NAME}`,
-    },
-  };
+if (process.env.NODE_ENV === 'production') {
+  config.connection.host = `/cloudsql/${DB_SOCKET_NAME}`;
+}
 
 // Initialize Knex and Objection
 export default async () => {
