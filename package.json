@@ -9,7 +9,8 @@
     "start": "node dist/server.js",
     "build": "tsc",
     "deploy:staging": "npm run build && gcloud config set project press-express-staging && gcloud app deploy staging.yaml",
-    "deploy:production": "npm run build && gcloud config set project press-express-225200 && gcloud app deploy production.yaml"
+    "deploy:production": "npm run build && gcloud config set project press-express-225200 && gcloud app deploy production.yaml",
+    "clean": "rm -rf dist"
   },
   "author": "Erik Lorenz",
   "license": "ISC",
@@ -19,7 +20,7 @@
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "debug": "^4.1.1",
-    "dotenv": "^6.2.0",
+    "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "graphql": "^14.1.1",
     "graphql-tools": "^4.0.4",
@@ -47,7 +48,7 @@
     "@types/luxon": "^1.11.1",
     "@types/morgan": "^1.7.35",
     "@types/node": "^11.11.3",
-    "@types/stripe": "^6.25.2",
+    "@types/stripe": "^6.25.3",
     "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^1.4.2",
     "@typescript-eslint/parser": "^1.4.2",
