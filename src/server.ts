@@ -5,6 +5,7 @@ import bodyParser from 'koa-bodyparser';
 import apollo from './schema';
 import logger from 'koa-logger';
 import initializeDB from './db';
+import cors from '@koa/cors';
 
 const { PORT, NODE_ENV } = process.env;
 
@@ -12,17 +13,18 @@ const { PORT, NODE_ENV } = process.env;
 const app = new Koa();
 const router = new Router();
 
-// Middleware
-app.use(logger());
-app.use(bodyParser());
-
 // DB
 initializeDB();
 
-// Apply Apollo server middleware
+// Middleware
+app.use(cors());
+app.use(logger());
+app.use(bodyParser());
+
+// Apply Apollo server
 apollo.applyMiddleware({ app });
 
-// Wire up router
+// Wire up routes
 app.use(router.routes()).use(router.allowedMethods());
 
 // Start Server
