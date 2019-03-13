@@ -45,7 +45,7 @@
     "@types/jsonwebtoken": "^8.3.2",
     "@types/luxon": "^1.11.1",
     "@types/morgan": "^1.7.35",
-    "@types/node": "^11.11.1",
+    "@types/node": "^11.11.3",
     "@types/stripe": "^6.25.2",
     "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^1.4.2",
@@ -59,6 +59,6 @@
     "prettier": "^1.16.4",
     "supertest": "^4.0.0",
     "ts-node-dev": "^1.0.0-pre.32",
-    "typescript": "^3.4.0-dev.20190312"
+    "typescript": "^3.3.3333"
   }
 }
