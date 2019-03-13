@@ -7,7 +7,6 @@ import apolloServer from './schema';
 import initializeDB from './db';
 import routes from './routes';
 import logger from './config/winston';
-import winston = require('winston');
 
 const { PORT, NODE_ENV } = process.env;
 
